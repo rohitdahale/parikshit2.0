@@ -102,42 +102,126 @@ const Courses = () => {
   }
 
   return (
-    <main className="courses">
-      <div className="header">
-        <h2>Total Courses: {courses.length}</h2>
-        <h3>Available Courses: {notEnrolledCourses.length}</h3>
-      </div>
+    <>
+      {/* Main Content */}
+      <main className="main-content">
+        <div className="container">
+          <div className="content-wrapper">
+            <aside className="filters">
+              <h3>Course Filters</h3>
+              <button className="close-btn"><i className="fas fa-times"></i> Close Filters</button>
 
-      <div className="search-bar">
-        <input type="text" placeholder="Search For Courses" />
-        <button>Search</button>
-      </div>
+              <div className="filter-group">
+                <label htmlFor="domain">Domain</label>
+                <select id="domain" className="custom-select">
+                  <option value="">All Domains</option>
+                  <option value="engineering">Engineering</option>
+                  <option value="science">Science</option>
+                  <option value="technology">Technology</option>
+                </select>
+              </div>
 
-      <div className="course-list">
-        {notEnrolledCourses.length === 0 ? (
-          <div>No available courses</div>
-        ) : (
-          notEnrolledCourses.map((course) => (
-            <div className="course-card" key={course.id}>
-              <div className="course-icon"></div>
-              <div className="course-details">
-                <h4>{course.name}</h4>
-                <p className="instructor">{course.instructorName}</p>
-                <p className="description">{course.description}</p>
-                <p className="course-id">Course Id - {course.id}</p>
+              <div className="filter-group">
+                <label htmlFor="provider">Provider</label>
+                <select id="provider" className="custom-select">
+                  <option value="">All Providers</option>
+                  <option value="internal">Internal</option>
+                  <option value="external">External</option>
+                </select>
+              </div>
 
-                <button
-                  className="enroll-btn"
-                  onClick={() => handleEnroll(course.id)}
-                >
-                  Enroll Now
+              <div className="filter-group">
+                <label htmlFor="difficulty">Difficulty</label>
+                <select id="difficulty" className="custom-select">
+                  <option value="">All Levels</option>
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </div>
+
+              <button className="apply-filter">
+                <i className="fas fa-filter"></i> Apply Filters
+              </button>
+            </aside>
+
+            <section className="course-section">
+              <div className="search-container">
+                <input type="text" placeholder="Search for courses..." className="search-input" />
+                <button className="search-btn">
+                  <i className="fas fa-search"></i>
                 </button>
               </div>
+
+              <div className="course-list">
+                {notEnrolledCourses.length === 0 ? (
+                  <div>No available courses</div>
+                ) : (
+                  notEnrolledCourses.map((course) => (
+                    <div className="course-card" key={course.id}>
+                      <div className="course-header">
+                        <h4>{course.name}</h4>
+                        <span className={`course-level ${course.level ? course.level.toLowerCase() : "unknown"}`}>
+                          {course.level || "Unknown Level"}
+                        </span>
+                      </div>
+
+                      <p className="course-instructor">by {course.instructorName}</p>
+                      <p className="course-description">{course.description}</p>
+                      <div className="course-meta">
+                        <span className="course-id">Course ID: {course.id}</span>
+                        <span className="course-duration">
+                          <i className="fas fa-clock"></i> {course.duration}
+                        </span>
+                      </div>
+                      <button className="enroll-btn" onClick={() => handleEnroll(course.id)}>
+                        <i className="fas fa-graduation-cap"></i> Enroll Now
+                      </button>
+                    </div>
+                  ))
+                )}
+              </div>
+            </section>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="container">
+          <div className="footer-grid">
+            <div className="footer-section about">
+              <h3>Parikshit</h3>
+              <p>Transforming education through innovative online learning solutions.</p>
+              <div className="social-links">
+                <a href="#" className="social-icon"><i className="fab fa-facebook"></i></a>
+                <a href="#" className="social-icon"><i className="fab fa-twitter"></i></a>
+                <a href="#" className="social-icon"><i className="fab fa-linkedin"></i></a>
+                <a href="#" className="social-icon"><i className="fab fa-instagram"></i></a>
+              </div>
             </div>
-          ))
-        )}
-      </div>
-    </main>
+            <div className="footer-section links">
+              <h4>Quick Links</h4>
+              <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Terms of Use</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+              </ul>
+            </div>
+            <div className="footer-section contact">
+              <h4>Contact Us</h4>
+              <ul>
+                <li><i className="fas fa-map-marker-alt"></i> 123 Main Street, City</li>
+                <li><i className="fas fa-phone"></i> +1 123-456-7890</li>
+                <li><i className="fas fa-envelope"></i> info@example.com</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </>
   );
 };
 
